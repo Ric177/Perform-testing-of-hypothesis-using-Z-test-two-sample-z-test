@@ -1,0 +1,32 @@
+import pandas as pd
+from statsmodels.stats import weightstats as stests
+df = pd.read_csv("blood_pressure.csv")
+df[['bp_before','bp_after']].describe()
+print(df)
+
+ztest ,pval = stests.ztest(df['bp_before'], x2=df['bp_after'], value=0,alternative='two-sided')
+print(float(pval))
+
+if pval<0.05:
+    print("reject null hypothesis")
+else:
+    print("accept null hypothesis")
+
+
+   patient     sex agegrp  bp_before  bp_after
+0          1    Male  30-45        143       153
+1          2    Male  30-45        163       170
+2          3    Male  30-45        153       168
+3          4    Male  30-45        153       142
+4          5    Male  30-45        146       141
+..       ...     ...    ...        ...       ...
+115      116  Female    60+        152       152
+116      117  Female    60+        161       152
+117      118  Female    60+        165       174
+118      119  Female    60+        149       151
+119      120  Female    60+        185       163
+
+[120 rows x 5 columns]
+0.002162306611369422
+reject null hypothesis
+
